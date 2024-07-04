@@ -48,17 +48,11 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Get the tasks created by the user.
-     */
     public function tasks()
     {
         return $this->hasMany(Task::class, 'created_by');
     }
 
-    /**
-     * Get the user tasks for the user.
-     */
     public function userTasks()
     {
         return $this->hasMany(UserTask::class);
@@ -76,6 +70,6 @@ class User extends Authenticatable
 
     public function children()
     {
-        return $this->hasMany(Child::class);
+        return $this->hasMany(Child::class, 'couple_id');
     }
 }

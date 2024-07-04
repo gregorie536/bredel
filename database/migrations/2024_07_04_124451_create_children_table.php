@@ -15,7 +15,7 @@ class CreateChildrenTable extends Migration
     {
         Schema::create('children', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('couple_id')->constrained('users', 'id')->onDelete('cascade');
             $table->string('name');
             $table->date('birthdate');
             $table->timestamps();

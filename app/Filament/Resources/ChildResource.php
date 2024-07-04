@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ChildResource\Pages;
 use App\Filament\Resources\ChildResource\RelationManagers;
 use App\Models\Child;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,6 +20,7 @@ use Filament\Forms\Components\DatePicker;
 
 
 
+
 class ChildResource extends Resource
 {
     protected static ?string $model = Child::class;
@@ -29,9 +31,14 @@ class ChildResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('user_id')
-                    ->relationship('user', 'name')
+                Select::make('couple_id')
+                    ->label('Parent 1')
+                    ->options(User::all()->pluck('name', 'id'))
                     ->required(),
+                Select::make('second_parent_id')
+                    ->label('Parent 2')
+                    ->options(User::all()->pluck('name', 'id'))
+                    ->nullable(),
                 TextInput::make('name')
                     ->required(),
                 DatePicker::make('birthdate')
@@ -44,7 +51,8 @@ class ChildResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\TextColumn::make('user.name')->label('Parent')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('couple.name')->label('Parent 1')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('secondParent.name')->label('Parent 2')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('birthdate')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),

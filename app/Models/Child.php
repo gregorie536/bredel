@@ -10,13 +10,20 @@ class Child extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        // 'user_id',
+        'couple_id',
         'name',
         'birthdate',
+        'second_parent_id',
     ];
 
-    public function user()
+    public function couple()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'couple_id');
+    }
+
+    public function secondParent()
+    {
+        return $this->belongsTo(User::class, 'second_parent_id');
     }
 }

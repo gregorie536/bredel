@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Select;
 
 class UserResource extends Resource
 {
@@ -27,9 +28,9 @@ class UserResource extends Resource
                 TextInput::make('email')->required()->email(),
                 TextInput::make('password')->password()->required(),
                 Toggle::make('is_admin')->default(false),
-                Forms\Components\Select::make('couple_id')
-                    ->label('Couple')
-                    ->relationship('couple', 'name')
+                Select::make('couple_id')
+                    ->label('Partner')
+                    ->options(User::all()->pluck('name', 'id'))
                     ->nullable(),
             ]);
     }
