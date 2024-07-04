@@ -10,8 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $tasks = Task::with('user')->get();
-        $presences = Presence::with('user')->get();
+        $tasks = Task::with('user.couple')->get();
+        $presences = Presence::with('user.couple')->get();
 
         $response = [
             'tasks' => $tasks,
@@ -21,4 +21,3 @@ class HomeController extends Controller
         return Inertia::render('Home', $response);
     }
 }
-

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'couple_id',
     ];
 
     /**
@@ -61,5 +62,20 @@ class User extends Authenticatable
     public function userTasks()
     {
         return $this->hasMany(UserTask::class);
+    }
+
+    public function couple()
+    {
+        return $this->belongsTo(User::class, 'couple_id');
+    }
+
+    public function partners()
+    {
+        return $this->hasMany(User::class, 'couple_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Child::class);
     }
 }
